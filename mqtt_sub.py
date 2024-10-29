@@ -64,8 +64,8 @@ def send_temperature(data):
     # temperatura = subprocess.run(["caminho/do/script", "args"], capture_output=true)
     # data = temperatura
     
-    subprocess.run(["python", "main.py", "-v", str(data), "-l", "temperatura"]) # Executa comando
-    # Por conta do sleep do main.py, pode atrasar caso chame CPU em seguida 
+    subprocess.run(["python", "mqtt_publisher.py", "-v", str(data), "-l", "temperatura"]) # Executa comando
+    # Por conta do sleep do mqtt_publisher.py, pode atrasar caso chame CPU em seguida 
     # --> Ver se é possível executar em segundo plano
 
 def send_cpu(data):
@@ -79,8 +79,8 @@ def send_cpu(data):
     # cpu = subprocess.run(["caminho/do/script", "args"], capture_output=true)
     # data = cpu
 
-    subprocess.run(["python", "main.py", "-v", str(data), "-l", "temperatura"]) # Executa comando
-    # Por conta do sleep do main.py, pode atrasar caso chame Temperatura em seguida 
+    subprocess.run(["python", "mqtt_publisher.py", "-v", str(data), "-l", "temperatura"]) # Executa comando
+    # Por conta do sleep do mqtt_publisher.py, pode atrasar caso chame Temperatura em seguida 
     # --> Ver se é possível executar em segundo plano
 
 
