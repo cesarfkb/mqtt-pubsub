@@ -8,27 +8,29 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Ubidots configurations
-connected = False  # Stores the connection status
+# Dados para conexão com Ubidots
+connected = False
 BROKER_ENDPOINT = "industrial.api.ubidots.com"
-TLS_PORT = 8883  # Secure port
-MQTT_USERNAME = os.getenv("UBIDOTS_TOKEN")  # Put here your Ubidots TOKEN
-MQTT_PASSWORD = ""  # Leave this in blank
+TLS_PORT = 8883
+MQTT_USERNAME = os.getenv("UBIDOTS_TOKEN")
+MQTT_PASSWORD = ""
 TOPIC = "/v1.6/devices/"
 DEVICE_LABEL = "retropie"
+TLS_CERT_PATH = "./industrial.pem"
+
+# Definição de variaveis para definir subscribe
 VARIABLE_LABEL = ["reqtemperatura", "reqcpu"]
-TLS_CERT_PATH = "./industrial.pem"  # Put here the path of your TLS cert
 sub1 = TOPIC + DEVICE_LABEL + "/" + VARIABLE_LABEL[0] + "/lv"
 sub2 = TOPIC + DEVICE_LABEL + "/" + VARIABLE_LABEL[1] + "/lv"
 MQTT_TOPICS = [(sub1, 0), (sub2, 0)]
 
 
 def on_connect(client, userdata, flags, rc):
-    global connected  # Use global variable
+    global connected
     if rc == 0:
 
         print("[INFO] Connected to broker")
-        connected = True  # Signal connection
+        connected = True
         client.subscribe(MQTT_TOPICS)
     else:
         print("[INFO] Error, connection failed")
@@ -101,7 +103,7 @@ def connect(mqtt_client, mqtt_username, mqtt_password, broker_endpoint, port):
 
         attempts = 0
 
-        while not connected and attempts < 5:  # Wait for connection
+        while not connected and attempts < 5:
             print(connected)
             time.sleep(1)
             attempts += 1
